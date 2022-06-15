@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Index</title>
+  </head>
+  <body>
+    <a href="{% url 'coinapp:index'%}" class="btn btn-success">Home</a>
+    {% if message %}
+        <h2>There was an error when creating the coin: {{message}}</h2>
+    {% endif %}
+    <h2>Available coin names</h2> 
+    {% if coin_list %}
+        <ul>
+            {% for coin in coin_list %}
+                <li>{{ coin.coin_name }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No coins were created yet.</p>
+    {% endif %}
+    <form action="{% url 'coinapp:save_coin' %}" method="post">
+        {% csrf_token %}
+        <fieldset>
+            <legend><h1>Create a new Coin</h1></legend>
+            <label for="coin_name">Coin name: </label>
+            <input id="coin_name" type="text" name="coin_name">
+        </fieldset>
+        <input type="submit" value="Create">
+    </form>
+  </body>
+</html>
