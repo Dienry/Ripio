@@ -2,15 +2,22 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Index</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <title>Index</title>
   </head>
   <body>
-        <a href="{% url 'coinapp:create_coin' %}" class="btn btn-success">Create a coin</a>
-        <a href="{% url 'coinapp:balance' 'Diego'%}" class="btn btn-success">My balance</a> <!-- Here the app should know which user is loged in and pass the user name to the balance template -->
-        <a href="{% url 'coinapp:send_money' %}" class="btn btn-success">Make a transfer</a>
-        <a href="{% url 'coinapp:movements' 'Diego' %}" class="btn btn-success">Movements</a>
-        <div id="main_content">
-          {% block content %}{% endblock %}
+    <div class="container">
+      <a href="{% url 'coinapp:index'%}" class="btn btn-info">Home</a>  
+      <a href="{% url 'coinapp:create_coin' %}" class="btn btn-primary">Create a coin</a>
+      <a href="{% url 'coinapp:balance' 'Diego'%}" class="btn btn-primary">My balance</a> <!-- Here the app should know which user is loged in and pass the user name to the balance template -->
+      <a href="{% url 'coinapp:send_money' %}" class="btn btn-primary">Make a transfer</a>
+      <a href="{% url 'coinapp:movements' 'Diego' %}" class="btn btn-primary">Movements</a>
+      <div id="main_content">
+        {% block content %}{% endblock %}
       </div>
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>  
+    </div>
   </body>
 </html>

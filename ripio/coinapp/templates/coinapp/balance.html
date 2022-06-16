@@ -1,14 +1,24 @@
 {% extends "./index.html" %}
 {% block content %}
 <div class="main_content">
-  <a href="{% url 'coinapp:index'%}" class="btn btn-success">Home</a>  
-  {% if balance_list %}
   <h1>Balance</h1>
-      <ul>
-          {% for coin, balance in balance_list.items%}
-              <li>{{balance}} {{coin}}</li>
-          {% endfor %}
-      </ul>
+  {% if balance_list %}
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Amount</th>
+            <th scope="col">Coin</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for coin, balance in balance_list.items %}
+                <tr>
+                    <td>{{balance}}</td>
+                    <td>{{coin}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+      </table>
   {% else %}
       <p>You have no balance yet.</p>
   {% endif %}

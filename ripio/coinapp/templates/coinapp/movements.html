@@ -1,26 +1,29 @@
 {% extends "./index.html" %}
 {% block content %}
-<div class="main_content">
-  <a href="{% url 'coinapp:index'%}" class="btn btn-success">Home</a>  
+<div class="main_content"> 
   {% if movements %}
   <h1>Movements</h1>
-      <table>
+      <table class="table">
+        <thead>
           <tr>
-            <th>Sender</th>
-            <th>Receiver</th>
-            <th>Amount</th>
-            <th>Coin</th>
-            <th>Date</th>
+            <th scope="col">Sender</th>
+            <th scope="col">Receiver</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Coin</th>
+            <th scope="col">Date</th>
           </tr>
-          {% for movement in movements%}
-          <tr>
-            <td>{{movement.sender_name}}</td>
-            <td>{{movement.receiver_name}}</td>
-            <td>{{movement.amount}}</td>
-            <td>{{movement.coin_used}}</td>
-            <td>{{movement.operation_date}}</td>
-          </tr>
-          {% endfor %}
+        </thead>
+        <tbody>
+            {% for movement in movements %}
+                <tr>
+                  <td>{{movement.sender_name}}</td>
+                  <td>{{movement.receiver_name}}</td>
+                  <td>{{movement.amount}}</td>
+                  <td>{{movement.coin_used}}</td>
+                  <td>{{movement.operation_date}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
       </table>
   {% else %}
       <p>You didn't make any transaction yet.</p>
