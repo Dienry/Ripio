@@ -3,6 +3,7 @@ from django.http import Http404, HttpResponseRedirect
 from django.utils import timezone
 from django.db import IntegrityError
 from django.db.models import Q
+from django.urls import reverse
 from .models import Coin, User, Registry
 
 # Create your views here.
@@ -18,19 +19,25 @@ def create_coin(request, message=None):
     return render(request, 'coinapp/create_coin.html', context)
 
 def balance(request, user_name):
-    try:
-        user_list = User.objects.filter(user_name=user_name) 
-    except Coin.DoesNotExist:
-        raise Http404("Coin does not exist on the DB")
-    user_balance = {'balance_list':{user.coin.coin_name : user.balance for user in user_list}}
-    return render(request, 'coinapp/balance.html',  user_balance)
+    if is_it_me(user_name):
+        try:
+            user_list = User.objects.filter(user_name=user_name) 
+        except Coin.DoesNotExist:
+            raise Http404("Coin does not exist on the DB")
+        user_balance = {'balance_list':{user.coin.coin_name : user.balance for user in user_list}}
+        return render(request, 'coinapp/balance.html',  user_balance)
+    else:
+        return HttpResponseRedirect(reverse('coinapp:index'))
 
 def movements(request, user_name):
-    try:
-        movements = Registry.objects.filter(Q(sender_name=user_name) | Q(receiver_name=user_name))
-    except Coin.DoesNotExist:
-        raise Http404("Registry does not exist on the DB")
-    return render(request, 'coinapp/movements.html',  {'movements': movements})
+    if is_it_me(user_name):
+        try:
+            movements = Registry.objects.filter(Q(sender_name=user_name) | Q(receiver_name=user_name))
+        except Coin.DoesNotExist:
+            raise Http404("Registry does not exist on the DB")
+        return render(request, 'coinapp/movements.html',  {'movements': movements})
+    else:
+        return HttpResponseRedirect(reverse('coinapp:index'))
 
 def send_money(request, message=None):
     try:
@@ -95,4 +102,5 @@ def has_balance(sender_user, amount):
 def transfer_to_myself(sender, receiver):
     return sender == receiver
 
-
+def is_it_me(user):
+    return user == 'Diego' # This would be managed with a session. Also I believe Django has something to manage this kind of validations for each view.
