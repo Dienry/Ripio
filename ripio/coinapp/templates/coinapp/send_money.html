@@ -1,24 +1,20 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Index</title>
-  </head>
-  <body>
-    <a href="{% url 'coinapp:index'%}" class="btn btn-success">Home</a>
-    {% if message %}
-        <h2>{{message}}</h2>
-    {% endif %}
-    <form action="{% url 'coinapp:make_transfer' %}" method="post">
-        {% csrf_token %}
-        <input id="receiver_name" type="text" name="receiver_name" placeholder="Receiver Name"><br>
-        <input id="amount" type="text" name="amount" placeholder="Amount"><br>
-        <label for="coin_name">Coin: </label><br>
-        {% for coin in coin_list %}
-            <input type="radio" id={{coin}} name="coin" value={{coin}}>
-            <label for={{coin}}>{{coin}}</label><br>
-        {% endfor %}
-        <input type="submit" value="Send money">
-    </form>
-  </body>
-</html>
+{% extends "./index.html" %}
+{% block content %}
+<div class="main_content">
+  <a href="{% url 'coinapp:index'%}" class="btn btn-success">Home</a>
+  {% if message %}
+      <h2>{{message}}</h2>
+  {% endif %}
+  <form action="{% url 'coinapp:make_transfer' %}" method="post">
+      {% csrf_token %}
+      <input id="receiver_name" type="text" name="receiver_name" placeholder="Receiver Name"><br>
+      <input id="amount" type="text" name="amount" placeholder="Amount"><br>
+      <label for="coin_name">Coin: </label><br>
+      {% for coin in coin_list %}
+          <input type="radio" id={{coin}} name="coin" value={{coin}}>
+          <label for={{coin}}>{{coin}}</label><br>
+      {% endfor %}
+      <input type="submit" value="Send money">
+  </form>
+</div>  
+{% endblock %}

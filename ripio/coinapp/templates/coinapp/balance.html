@@ -1,20 +1,16 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Index</title>
-  </head>
-  <body>
-    <a href="{% url 'coinapp:index'%}" class="btn btn-success">Home</a>  
-    {% if balance_list %}
-    <h1>Balance</h1>
-        <ul>
-            {% for coin, balance in balance_list.items%}
-                <li>{{balance}} {{coin}}</li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>You have no balance yet.</p>
-    {% endif %}
-  </body>
-</html>
+{% extends "./index.html" %}
+{% block content %}
+<div class="main_content">
+  <a href="{% url 'coinapp:index'%}" class="btn btn-success">Home</a>  
+  {% if balance_list %}
+  <h1>Balance</h1>
+      <ul>
+          {% for coin, balance in balance_list.items%}
+              <li>{{balance}} {{coin}}</li>
+          {% endfor %}
+      </ul>
+  {% else %}
+      <p>You have no balance yet.</p>
+  {% endif %}
+</div>  
+{% endblock %}

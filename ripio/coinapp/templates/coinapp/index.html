@@ -9,5 +9,8 @@
         <a href="{% url 'coinapp:balance' 'Diego'%}" class="btn btn-success">My balance</a> <!-- Here the app should know which user is loged in and pass the user name to the balance template -->
         <a href="{% url 'coinapp:send_money' %}" class="btn btn-success">Make a transfer</a>
         <a href="{% url 'coinapp:movements' 'Diego' %}" class="btn btn-success">Movements</a>
+        <div id="main_content">
+          {% block content %}{% endblock %}
+      </div>
   </body>
 </html>
