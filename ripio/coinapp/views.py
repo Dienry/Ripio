@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.db import IntegrityError
 from django.db.models import Q
 from django.urls import reverse
+from django.core.exceptions import PermissionDenied
 from .models import Coin, User, Registry
 
 # Create your views here.
@@ -27,7 +28,7 @@ def balance(request, user_name):
         user_balance = {'balance_list':{user.coin.coin_name : user.balance for user in user_list}}
         return render(request, 'coinapp/balance.html',  user_balance)
     else:
-        return HttpResponseRedirect(reverse('coinapp:index'))
+        raise PermissionDenied()
 
 def movements(request, user_name):
     if is_it_me(user_name):
@@ -37,7 +38,7 @@ def movements(request, user_name):
             raise Http404("Registry does not exist on the DB")
         return render(request, 'coinapp/movements.html',  {'movements': movements})
     else:
-        return HttpResponseRedirect(reverse('coinapp:index'))
+        raise PermissionDenied()
 
 def send_money(request, message=None):
     try:
